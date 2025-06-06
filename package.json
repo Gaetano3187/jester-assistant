@@ -1,18 +1,17 @@
+{
   "name": "jester-assistant",
   "version": "1.0.0",
-  "description": "Voice assistant shopping list with OCR & GPT", 
+  "description": "Voice assistant shopping list with OCR & GPT",
   "license": "MIT",
-    "type": "module",
+  "type": "module",
   "engines": {
     "node": "18.x"
   },
   "scripts": {
-
-        "dev": "vercel dev"
+    "dev": "vercel dev"
   },
   "dependencies": {
     "openai": "^4.0.0",
-   "tesseract.js": "^5.0.0"
-" }
-
-
+    "tesseract.js": "^5.0.0"
+  }
+}
