@@ -8,9 +8,8 @@
     "node": "18.x"
   },
   "scripts": {
-    "dev": "vercel dev",
-    "build": "echo 'Static project – no build needed'",
-    "start": "vercel dev"
+
+        "dev": "vercel dev"
   },
   "dependencies": {
     "openai": "^4.0.0",
