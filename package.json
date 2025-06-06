@@ -1,0 +1,8 @@
+{
+  "name": "jester",
+  "version": "1.0.0",
+  "description": "Voice assistant shopping list",
+  "scripts": {
+    "test": "echo 'No tests specified'"
+  }
+}
