@@ -1,0 +1,10 @@
+{
+  "rewrites": [{ "source": "/", "destination": "/index.html" }],
+  "cleanUrls": true,
+  "functions": {
+    "api/ocr-gpt.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  }
+}
