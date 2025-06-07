@@ -31,7 +31,49 @@
     const allItems = [...supermarketList.children, ...onlineList.children];
     allItems.forEach(li => li.classList.add('purchased'));
     updateStats();
+ 
+    // ------------------  S T O R I C O   S C O N T R I N I  ------------------
+
+  window.receipts = JSON.parse(localStorage.getItem('receipts') || '[]');
+
+  function saveReceipts() {
+    localStorage.setItem('receipts', JSON.stringify(window.receipts));
+  }
+
+  window.addReceipt = function (receipt) {
+    window.receipts.push(receipt);
+    saveReceipts();
+    renderHistory();
   };
+
+  function renderHistory() {
+    const historyDiv = document.getElementById('history');
+    if (!historyDiv) return;
+    historyDiv.innerHTML = '';
+
+    window.receipts.slice().reverse().forEach(r => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'receipt-card mb-2 p-2 border rounded';
+
+      const header = document.createElement('div');
+      header.innerHTML = `<strong>${r.store}</strong> – ${r.date} – Totale: €${r.total.toFixed(2)}`;
+      wrapper.appendChild(header);
+
+      const ul = document.createElement('ul');
+      r.items.forEach(it => {
+        const li = document.createElement('li');
+        li.textContent = `${it.qty} × ${it.name} – €${it.price.toFixed(2)}`;
+        ul.appendChild(li);
+      });
+      wrapper.appendChild(ul);
+
+      historyDiv.appendChild(wrapper);
+    });
+  }
+
+  renderHistory();
+
+})();};
 
   window.downloadList = function() {
     const items = [...supermarketList.children, ...onlineList.children].map(li => li.textContent);
