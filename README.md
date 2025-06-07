@@ -1,67 +1,33 @@
-# Jester Assistant
+# 🧠 JESTER – Assistente Vocale per la Spesa
+Web app pronta per il deploy su Vercel che unisce comandi vocali, OCR tramite GPT‑4 Vision e funzioni PWA.
 
-Assistente vocale con OCR e GPT che consente di trasformare immagini di scontrini o liste della spesa in testo, gestire una lista e interagire tramite voce.
+## Funzionalità principali
+- Aggiunta e rimozione prodotti con voce o clic
+- Gestione due liste: supermercato e online
+- Preferiti con aggiunta rapida
+- Pulsante "segna come acquistato" con statistiche dinamiche
+- Import prodotti da scontrino tramite `/api/ocr-gpt`
+- Generazione lista `.txt` scaricabile
+- Installabile come PWA e funzionante offline
+- Database frasario per comandi vocali in `voice-db.js`
 
-## Requisiti
-
-- **Node.js 18+** (o versione LTS più recente)
-- **npm** o **pnpm**
-- Account **OpenAI** con chiave API
-- Account **Vercel** (per il deploy)
-
-## Installazione locale
-
-```bash
-# clona il progetto
-git clone https://github.com/Gaetano3187/jester-assistant.git
-cd jester-assistant
-
-# installa le dipendenze
-npm install
-
-# avvia in modalità sviluppo
-npx vercel dev
+## Struttura progetto
 ```
-
-Apri <http://localhost:3000> per vedere l'app.
-
-## Variabili d'ambiente
-
-| Nome | Descrizione |
-|------|-------------|
-| `OPENAI_API_KEY` | Chiave API di OpenAI |
-
-In locale puoi creare un file `.env` (che resta ignorato dal repo) con:
-
-```env
-OPENAI_API_KEY=la_tua_chiave
-```
-
-## Struttura del progetto
-
-```
-├─ api/                # Funzioni serverless (Vercel)
-│  └─ ocr-gpt.js       # OCR + GPT
-├─ index.html          # Front‑end statico
-├─ serviceWorker.js    # PWA / offline
-├─ package.json        # Dipendenze e script
-├─ vercel.json         # Configurazione Vercel
-└─ README.md           # Questo file
+index.html          ─ interfaccia principale
+serviceWorker.js    ─ caching offline
+manifest.json       ─ configurazione PWA
+api/ocr-gpt.js      ─ endpoint serverless per GPT‑4 Vision
+icon-192.png        ─ icona applicazione
+voice-db.js         ─ elenco varianti sintattiche per i comandi
+voice.js            ─ logica di riconoscimento vocale
 ```
 
 ## Deploy su Vercel
+1. Carica il repository su GitHub
+2. Collega il repo a Vercel
+3. In **Settings → Environment Variables** aggiungi
+   `OPENAI_API_KEY = sk-xxxxx`
+4. Imposta come runtime Node 18 (necessario per `fetch`)
+5. Avvia il deploy
 
-1. Collega il repository al tuo account Vercel.
-2. Imposta la variabile **OPENAI_API_KEY** in *Project → Settings → Environment Variables*.
-3. Clicca **Deploy**. Vercel installerà le dipendenze e pubblicherà l'app.
-
-## Script npm
-
-| Comando | Descrizione |
-|---------|-------------|
-| `npm run dev` | Avvia `vercel dev` in locale |
-| `npm run build` | (Nessuna build necessaria per ora) |
-
-## Licenza
-
-MIT
+Dopo il primo caricamento l'app potrà funzionare anche offline.
