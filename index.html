@@ -78,10 +78,16 @@
       const base64Image = o.target.result;
       document.getElementById('output').innerText = '🕐 Analisi in corso...';
       try {
-        const risposta = await inviaFotoAVercel(base64Image);
-        document.getElementById('output').innerText = '📋 Prodotti rilevati:';
-        const items = risposta.split(/\n/).map(i => i.trim()).filter(Boolean);
-        items.forEach(i => addItem(i, 'supermarket'));
+     //    const risposta = await inviaFotoAVer
+     //      cel(base64Image);
+     //    document.getElementById('output').innerText = '📋 Prodotti rilevati:';
+     // //    const items = risposta.split(/\n/).map(
+        
+      const receipt = await inviaFotoAVercel(base64Image);
+      addReceipt(receipt);
+      markPurchasedByNames(receipt.items.map(it => it.name));
+      document.getElementById('output').innerText = '🧾 Scontrino registrato!';i => i.trim()).filter(Boolean);
+     //    items.forEach(i => addItem(i, 'supermarket'));
       } catch (err) {
         document.getElementById('output').innerText = '❌ Errore: ' + err.message;
       }
