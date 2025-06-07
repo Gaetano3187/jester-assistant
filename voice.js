@@ -13,7 +13,10 @@
   recognition.addEventListener('result', e => {
     const text = e.results[0][0].transcript;
     processCommand(text);
-  });
+  
+recognition.addEventListener('error', e => {
+    alert('Errore riconoscimento vocale: ' + e.error + '\nVerifica i permessi del microfono.');
+});});
 
   function processCommand(text) {
     const lower = text.toLowerCase();
