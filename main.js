@@ -42,7 +42,15 @@
 
   window.addReceipt = function (receipt) {
     window.receipts.push(receipt);
-    saveReceipts();
+    saveRec
+      receipt.items.forEach(it => {
+    const key = it.name.toLowerCase();
+    if (!window.productHistory[key]) window.productHistory[key] = [];
+    window.productHistory[key].push(receipt.date);
+  });
+  saveHistory();
+  updateLowStock();
+      eipts();
     renderHistory();
   };
 
@@ -72,6 +80,7 @@
   }
 
   renderHistory();
+    
 
 })();};
 
