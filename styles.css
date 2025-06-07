@@ -126,7 +126,7 @@ li.purchased {
 }
 
 .column {
-  background: rgba(255,255,255,0.85);
+  abckground: rgba(192,192,192,0.9); border: 1px solid #999;
   padding: 1rem;
   border-radius: 8px;
 }
