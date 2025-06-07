@@ -1,6 +1,8 @@
 {
-  "rewrites": [{ "source": "/", "destination": "/index.html" }],
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
   "functions": {
     "api/ocr-gpt.js": {
       "memory": 1024,
