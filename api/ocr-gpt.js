@@ -25,8 +25,18 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Here would normally call OpenAI API
+  // Per ora restituiamo un JSON di esempio
+  const sample = {
+    store: 'Supermercato Demo',
+    date: new Date().toISOString().slice(0, 10),
+    items: [
+      { name: 'latte', qty: 2, price: 3.20 },
+      { name: 'uova',  qty: 1, price: 2.50 }
+    ],
+    total: 5.70
+  };
+
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ ok: true }));
+  res.end(JSON.stringify(sample));res.end(JSON.stringify({ ok: true }));
 }
