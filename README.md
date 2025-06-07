@@ -1,4 +1,4 @@
-#  JESTER – OCR GPT (Vercel Ready)
+# 📚 JESTER – OCR GPT (Vercel Ready)
 
 Questa applicazione permette di caricare uno scontrino e inviarlo a GPT-4 Vision per l'estrazione automatica dei prodotti.
 
