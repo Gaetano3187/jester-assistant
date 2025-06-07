@@ -97,6 +97,8 @@ li.purchased {
   background: silver;
   padding: 1rem;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      position: relative;
+    z-index: 1;
 }
 
 .sidebar .logo {
