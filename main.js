@@ -51,4 +51,20 @@
     });
     updateStats();
   };
+
+  /**
+   * Segna come acquistati gli articoli riconosciuti via OCR
+   * @param {string[]} items - Array di nomi prodotto
+   */
+  window.markPurchasedByNames = function (items) {
+    items.forEach(name => {
+      [...supermarketList.children, ...onlineList.children].forEach(li => {
+        if (li.textContent.trim().toLowerCase() === name.trim().toLowerCase()) {
+          li.classList.add('purchased');
+        }
+      });
+    });
+    updateStats();
+  };
+
 })();
