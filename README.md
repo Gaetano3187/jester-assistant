@@ -1,36 +1,34 @@
-e# 🧠 JESTER – Assistente Vocale per la Spesa
-Web app pronta per il deploy su Vercel che unisce comandi vocali, OCR tramite GPT‑4 Vision e funzioni PWA.
+#  JESTER – OCR GPT (Vercel Ready)
 
-## Funzionalità principali
-- Aggiunta e rimozione prodotti con voce o clic
-- Gestione due liste: supermercato e online
-- Preferiti con aggiunta rapida
-- Pulsante "segna come acquistato" con statistiche dinamiche
-- Import prodotti da scontrino tramite `/api/ocr-gpt`
-- Generazione lista `.txt` scaricabile
-- Installabile come PWA e funzionante offline
-- Database frasario per comandi vocali in `voice-db.js`
+Questa applicazione permette di caricare uno scontrino e inviarlo a GPT-4 Vision per l'estrazione automatica dei prodotti.
 
-## Struttura progetto
+## ✅ Funzionalità
+- Caricamento immagini da fotocamera
+- Invio a OpenAI GPT-4 Vision tramite endpoint /api/ocr-gpt
+- Visualizzazione elenco prodotti riconosciuti
+- Design responsive e mobile-first
+
+## 🚀 Deploy su Vercel
+1. Carica questo progetto su Vercel oppure usa `vercel deploy`.
+2. In **Settings → Environment Variables** aggiungi:
+   ```
+   OPENAI_API_KEY = sk-xxxxx
+   ```
+3. Esegui il deploy e apri il dominio.
+
+### Endpoint API
+Una volta su Vercel l'endpoint `/api/ocr-gpt` sarà disponibile. Esegue una **POST** con
+body JSON:
+
+```json
+{ "base64Image": "data:image/png;base64,...." }
 ```
-index.html          ─ interfaccia principale
-serviceWorker.js    ─ caching offline
-manifest.json       ─ configurazione PWA
-api/ocr-gpt.js      ─ endpoint serverless per GPT‑4 Vision
-icon-192.png        ─ icona applicazione
-voice-db.js         ─ elenco varianti sintattiche per i comandi
-voice.js            ─ logica di riconoscimento vocale
-```
 
-## Deploy su Vercel
-1. Carica il repository su GitHub
-2. Collega il repo a Vercel
-3. In **Settings → Environment Variables** aggiungi
-   `OPENAI_API_KEY = sk-xxxxx`
-4. Imposta come runtime Node 18 (necessario per `fetch`)
-5. Avvia il deploy
+Il serverless function invia l'immagine a GPT‑4 Vision tramite la tua chiave OpenAI e
+restituisce la risposta JSON del modello.
 
-Dopo il primo caricamento l'app potrà funzionare anche offline.
+Ricordati di impostare l'`OPENAI_API_KEY` anche per l'ambiente di sviluppo se usi
+`vercel dev` in locale.
 
-## 🖥️ Endpoint
-Il file `api/ocr-gpt.js` implementa una funzione serverless per Vercel. Invia in POST un JSON con `base64Image` e restituisce la risposta JSON di OpenAI.
+## 🧠 Modello
+Usa `gpt-4-vision-preview` per il riconoscimento visivo.
