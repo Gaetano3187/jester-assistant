@@ -1,12 +1,12 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    res.status(405).send('Method Not Allowed');
+    res.status(405).send('Method not allowed');
     return;
   }
 
   const { base64Image } = req.body || {};
   if (!base64Image) {
-    res.status(400).send('Missing image data');
+    res.status(400).send('Missing base64Image');
     return;
   }
 
@@ -29,24 +29,18 @@ export default async function handler(req, res) {
           {
             role: 'user',
             content: [
-              { type: 'text', text: 'Elenca i prodotti presenti nello scontrino:' },
+              { type: 'text', text: "Leggi lo scontrino nell'immagine e restituisci solo l'elenco dei prodotti." },
               { type: 'image_url', image_url: { url: base64Image } }
             ]
           }
         ],
-        max_tokens: 200
+        max_tokens: 300
       })
     });
 
-    if (!openaiRes.ok) {
-      const text = await openaiRes.text();
-      res.status(500).send(text);
-      return;
-    }
-
     const data = await openaiRes.json();
-    res.status(200).json(data);
+    res.status(openaiRes.ok ? 200 : openaiRes.status).json(data);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).json({ error: err.message });
   }
 }
