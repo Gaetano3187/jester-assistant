@@ -11,7 +11,7 @@ background: #f9f9f9;
   top: 0;
   left: 0;
   width: 100%;
-  display: none;
+  display: block;
   height: 100%;
   object-fit: cover;
   z-index: -1;
