@@ -9,13 +9,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-        env:
-          OPENAI_API_KEY: dummy
+      
 
     strategy:
       matrix:
         node-version: [18.x]
-
+  env:
+          OPENAI_API_KEY: dummy
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
