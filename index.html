@@ -7,67 +7,71 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>📷 Jester – OCR con GPT</h1>
-  <p>Carica uno scontrino per estrarre i prodotti.</p>
+  <h1>🃏 Jester – OCR con GPT</h1>
+  <p>Carica uno scontrino o usa i comandi vocali per gestire la tua lista.</p>
 
-  <input type="file" accept="image/*" capture="environment" id="cameraInput" onchange="handlePhotoUpload(event)" style="display:none;">
-  <button onclick="document.getElementById('cameraInput').click()">Scatta Foto (Scontrino)</button>
+  <input type="file" accept="image/*" capture="environment" id="cameraInput" onchange="handlePhotoUpload(event)" style="display:none">
+  <button onclick="document.getElementById('cameraInput').click()">📸 Scatta Foto (Scontrino)</button>
+  <button onclick="startVoiceRecognition()">🎤 Comandi Vocali</button>
+  <button onclick="downloadList()">⬇️ Scarica Lista</button>
 
-  <div id="output">📋 Prodotti rilevati appariranno qui...</div>
-  <ul id="productList"></ul>
+  <div id="output">📋 Prodotti rilevati appariranno qui…</div>
+
+  <h2>🛒 Lista Supermercato</h2>
+  <ul id="list"></ul>
+
+  <h2>💻 Lista Online</h2>
+  <ul id="onlineList"></ul>
+
+  <h2>⭐ Preferiti</h2>
+  <ul id="favoritesList"></ul>
+
+  <button onclick="markPurchased()">✅ Segna come acquistato</button>
+  <div id="stats"></div>
+
+  <script src="voice-db.js"></script>
+  <script src="voice.js"></script>
+  <script src="main.js"></script>
 
   <script>
-    async function inviaFotoAVercel(base64Image) {
-      const res = await fetch('/api/ocr-gpt', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ base64Image })
-      });
+  async function inviaFotoAVercel(base64Image) {
+    const res = await fetch('/api/ocr-gpt', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ base64Image })
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error('Errore OCR via Vercel: ' + err);
+    }
+    const result = await res.json();
+    return result.choices?.[0]?.message?.content || '';
+  }
 
-      if (!res.ok) {
-        const err = await res.text();
-        throw new Error('Errore OCR via Vercel: ' + err);
+  function handlePhotoUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async function (o) {
+      const base64Image = o.target.result;
+      document.getElementById('output').innerText = '🕐 Analisi in corso...';
+      try {
+        const risposta = await inviaFotoAVercel(base64Image);
+        document.getElementById('output').innerText = '📋 Prodotti rilevati:';
+        const items = risposta.split(/\n/).map(i => i.trim()).filter(Boolean);
+        items.forEach(i => addItem(i, 'supermarket'));
+      } catch (err) {
+        document.getElementById('output').innerText = '❌ Errore: ' + err.message;
       }
+    };
+    reader.readAsDataURL(file);
+  }
 
-      const result = await res.json();
-      return result.choices?.[0]?.message?.content || '';
-    }
-
-    function handlePhotoUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = async function (e) {
-        const base64Image = e.target.result;
-        document.getElementById('output').innerText = '🧠 Analisi in corso...';
-
-        try {
-          const risposta = await inviaFotoAVercel(base64Image);
-          document.getElementById('output').innerText = '📋 Prodotti rilevati:';
-          const items = risposta.split(/\n|,/).map(i => i.trim()).filter(Boolean);
-          const list = document.getElementById('productList');
-          list.innerHTML = '';
-          items.forEach(text => {
-            const li = document.createElement('li');
-            li.textContent = text;
-            list.appendChild(li);
-          });
-        } catch (err) {
-          document.getElementById('output').innerText = '❌ Errore: ' + err.message;
-        }
-      };
-
-      reader.readAsDataURL(file);
-    }
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/serviceWorker.js')
-        .then(reg => console.log("✅ Service Worker registrato:", reg.scope))
-        .catch(err => console.error("❌ Registrazione SW fallita:", err));
-    }
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/serviceWorker.js')
+      .then(reg => console.log('✔️ Service worker registrato:', reg.scope))
+      .catch(err => console.error('❌ Registrazione SW fallita:', err));
+  }
   </script>
 </body>
 </html>
