@@ -1,4 +1,4 @@
-# 🧠 JESTER – Assistente Vocale per la Spesa
+e# 🧠 JESTER – Assistente Vocale per la Spesa
 Web app pronta per il deploy su Vercel che unisce comandi vocali, OCR tramite GPT‑4 Vision e funzioni PWA.
 
 ## Funzionalità principali
@@ -31,3 +31,6 @@ voice.js            ─ logica di riconoscimento vocale
 5. Avvia il deploy
 
 Dopo il primo caricamento l'app potrà funzionare anche offline.
+
+## 🖥️ Endpoint
+Il file `api/ocr-gpt.js` implementa una funzione serverless per Vercel. Invia in POST un JSON con `base64Image` e restituisce la risposta JSON di OpenAI.
