@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
         env:
-        OPENAI_API_KEY: dummy
+          OPENAI_API_KEY: dummy
 
     strategy:
       matrix:
