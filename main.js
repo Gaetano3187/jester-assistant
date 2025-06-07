@@ -10,6 +10,18 @@
     statsDiv.innerText = `Totale: ${total} • Acquistati: ${purchased}`;
   }
 
+  function showToast(msg) {
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2000);
+  }
+
+  window.addOnlineItem = function(item) {
+    addItem(item, 'online');
+  };
+
   window.addItem = function(item, list='supermarket') {
     const li = document.createElement('li');
     li.textContent = item;
@@ -19,7 +31,9 @@
     } else {
       supermarketList.appendChild(li);
     }
-    updateStats();
+ 
+        showToast(`${item} aggiunto alla lista ${list}`);
+updateStats();
   };
 
   window.removeItem = function(li) {
