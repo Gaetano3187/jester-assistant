@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "engines": {
-    "node": "18.x"
+    "nod>18.x
   },
   "scripts": {
     "dev": "vercel dev"
