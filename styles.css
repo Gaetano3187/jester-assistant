@@ -94,8 +94,9 @@ li.purchased {
 
 .sidebar {
   width: 220px;
-  background: silver;
+  rgba(255,255,255,0.8): ;
   padding: 1rem;
+      border: 5px solid red;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
       position: relative;
     z-index: 1;
