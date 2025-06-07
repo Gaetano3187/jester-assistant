@@ -4,7 +4,17 @@ body {
 background: #f9f9f9 url('LOGO JESTER.png') no-repeat center center fixed;
       background-size: cover;
   color: #333;
-}
+
+
+.hero-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}}
 
 h1 {
   color: #4CAF50;
