@@ -1,7 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   padding: 2rem;
-  backgr:ound ##f9f9f9 url('LOGO JESTER.png') no-repeat center center fixed;
+background: #f9f9f9 url('LOGO JESTER.png') no-repeat center center fixed;
       background-size: cover;
   color: #333;
 }
