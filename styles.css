@@ -27,13 +27,20 @@ button {
   white-space: pre-line;
 }
 
-@media (max-width: 600px) {
-  button {
-    width: 100%;
-    font-size: 1rem;
+/* Mobile-first styles */
+button,
+#output {
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  body {
+    max-width: 600px;
+    margin: auto;
   }
-  ul {
-    padding-left: 1rem;
-    font-size: 1rem;
+
+  button,
+  #output {
+    width: auto;
   }
 }
