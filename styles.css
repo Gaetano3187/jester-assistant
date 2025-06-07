@@ -130,3 +130,8 @@ li.purchased {
   padding: 1rem;
   border-radius: 8px;
 }
+
+.app-wrapper {
+  position: relative;
+  z-index: 1;
+}
