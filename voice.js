@@ -22,7 +22,26 @@ recognition.addEventListener('error', e => {
     const lower = text.toLowerCase();
     const db = window.commandsDB || {};
     const listEl = document.getElementById('list');
-    let item = '';
+   
+      const addSuperRegex = /aggiungi (?:alla )?lista supermercato (.+)/i;
+  const addOnlineRegex = /aggiungi (?:alla )?lista online (.+)/i;
+
+  if (addSuperRegex.test(lower)) {
+    const items = addSuperRegex.exec(lower)[1]
+      .split(/[ ,]+/)
+      .filter(Boolean);
+    items.forEach(item => addItem(item));
+    return;
+  }
+
+  if (addOnlineRegex.test(lower)) {
+    const items = addOnlineRegex.exec(lower)[1]
+      .split(/[ ,]+/)
+      .filter(Boolean);
+    items.forEach(item => addItem(item)); // sostituire con addOnlineItem se disponibile
+    return;
+  }
+let item = '';
 
     if (matchAndExtract(db.add)) {
       addItem(item);
