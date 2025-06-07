@@ -85,7 +85,7 @@
       const reader = new FileReader();
       reader.onload = async function (e) {
         const base64Image = e.target.result;
-        document.getElementById('output').innerText = '🤖 Analisi in corso...';
+        document.getElementById('output').innerText = '🧠 Analisi in corso...';
 
         try {
           const risposta = await inviaFotoAVercel(base64Image);
